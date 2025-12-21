@@ -1,53 +1,83 @@
-const { pipeline, env } = require("@xenova/transformers");
 const fs = require("fs");
 const path = require("path");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Configure to allow local caching
-env.cacheDir = path.join(__dirname, "../.cache");
-env.allowRemoteModels = true;
-
-let extractor = null;
-// We use a high-quality efficient embedding model compatible with transformers.js
-// If an ONNX version of InLegalBERT becomes available, we can switch to 'law-ai/InLegalBERT' or similar.
-const MODEL_NAME = "Xenova/all-MiniLM-L6-v2";
+// Python RAG Server URL
+const PYTHON_RAG_URL = "http://127.0.0.1:8000/embed";
 
 const VECTOR_STORE_PATH = path.join(__dirname, "../data/vectors.json");
 let vectorStore = [];
 
-async function loadModel() {
-  if (!extractor) {
-    console.log(`Loading embedding model: ${MODEL_NAME}...`);
-    // feature-extraction pipeline automatically handles tokenization and model inference
-    extractor = await pipeline("feature-extraction", MODEL_NAME, {
-      quantized: false,
-    });
-    console.log("RAG Model loaded successfully.");
-  }
-}
+// Initialize Gemini for Query Expansion
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+// Use a lightweight model for query expansion if possible, or the main one
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-pro";
+const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
+const model = genAI ? genAI.getGenerativeModel({ model: GEMINI_MODEL }) : null;
 
+/**
+ * Get embedding from Python RAG Server
+ */
 async function getEmbedding(text) {
   if (!text || typeof text !== "string")
     throw new Error("Invalid text for embedding");
-  await loadModel();
 
-  // pooling: 'mean' usually gives the best sentence representation for retrieval
-  // normalize: true ensures the vectors are unit length, making dot product == cosine similarity
-  const result = await extractor(text, { pooling: "mean", normalize: true });
+  try {
+    const response = await fetch(PYTHON_RAG_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
 
-  // The result is a Tensor, we want a plain array
-  return Array.from(result.data);
+    if (!response.ok) {
+      throw new Error(`Python RAG Server error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.embedding;
+  } catch (error) {
+    console.error("Failed to get embedding from Python server:", error.message);
+    throw error;
+  }
+}
+
+/**
+ * Expand casual user query into legal search terms using Gemini
+ */
+async function expandQuery(query) {
+  if (!model) return query; // Fallback if no model
+
+  try {
+    const prompt = `You are a legal search assistant.
+    Translate the following casual user query into specific Indian legal keywords and section numbers for vector search.
+    
+    User Query: "${query}"
+    
+    Output ONLY a single line of keywords/sections.
+    Example: "I hit someone with car" -> "Section 279 IPC rash driving Section 304A IPC death by negligence road accident"
+    
+    Keywords:`;
+
+    const result = await model.generateContent(prompt);
+    const expanded = result.response.text().trim();
+    console.log(`[RAG] Expanded Query: "${query}" -> "${expanded}"`);
+    return expanded;
+  } catch (error) {
+    console.warn(
+      "[RAG] Query expansion failed, using original:",
+      error.message
+    );
+    return query;
+  }
 }
 
 function cosineSimilarity(vecA, vecB) {
   if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
   let dot = 0.0;
-  // Since vectors are normalized, we only need dot product
-  // But for safety against non-normalized inputs, we essentially compute full cosine
-  // (Optimization: if strictly normalized, just dot product)
   for (let i = 0; i < vecA.length; i++) {
     dot += vecA[i] * vecB[i];
   }
-  return dot; // Assumes normalized inputs from getEmbedding
+  return dot;
 }
 
 function loadVectors() {
@@ -69,19 +99,26 @@ function loadVectors() {
 }
 
 /**
- * Retrieves the most relevant chunks for a given query.
- * @param {string} query - The user's question.
- * @param {number} topK - Number of chunks to return.
- * @returns {Array} - Array of chunk objects with { text, source, score, ... }
+ * Retrieves the most relevant chunks using InLegalBERT embeddings + Query Expansion
  */
 async function retrieveContext(query, topK = 8) {
-  // Reload vectors if empty (or could add a file watcher)
   if (vectorStore.length === 0) loadVectors();
-  if (vectorStore.length === 0) return []; // Still empty
+  if (vectorStore.length === 0) return [];
 
-  console.log(`Embedding query: "${query}"`);
-  const queryVec = await getEmbedding(query);
+  // 1. Expand Query
+  const searchTerms = await expandQuery(query);
 
+  // 2. Embed Search Terms (using Python Server)
+  console.log(`Embedding search terms: "${searchTerms}"`);
+  let queryVec;
+  try {
+    queryVec = await getEmbedding(searchTerms);
+  } catch (e) {
+    console.error("Embedding generation failed, retrieving nothing.");
+    return [];
+  }
+
+  // 3. Vector Search
   const scored = vectorStore.map((chunk) => {
     if (!chunk.embedding) return { ...chunk, score: -1 };
     return {
@@ -90,9 +127,7 @@ async function retrieveContext(query, topK = 8) {
     };
   });
 
-  // Sort by score descending
   scored.sort((a, b) => b.score - a.score);
-
   const results = scored.slice(0, topK);
   console.log(`Retrieved ${results.length} relevant chunks.`);
   return results;

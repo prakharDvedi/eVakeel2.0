@@ -16,7 +16,7 @@ console.log("[aiProxy] Gemini client ready:", !!model);
 
 /**
  * Extract text from PDF file
- */ 
+ */
 async function extractTextFromPDF(pdfPath) {
   try {
     if (!fs.existsSync(pdfPath)) {
@@ -125,7 +125,7 @@ Instructions:
     const chat = model.startChat({
       history: history,
       generationConfig: {
-        maxOutputTokens: 1000,
+        maxOutputTokens: 4096,
         temperature: 0.7,
       },
     });

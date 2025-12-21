@@ -1,0 +1,5 @@
+flask
+transformers
+torch
+sentence-transformers
+numpy
