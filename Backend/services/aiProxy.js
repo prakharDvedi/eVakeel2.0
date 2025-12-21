@@ -62,15 +62,12 @@ async function generate(payload) {
     }
 
     // System prompt for legal advisor role
-    const systemPrompt = `You are a legal advisor in india and giving answer as per indian advocate. Provide clear, actionable legal steps without markdown formatting (no bold text, no asterisks). Use plain text format. Do not console or reassure the user - be professional, direct, and factual. Focus on providing proper legal actionable steps and explain the risks involved in the case. Keep answers concise when possible, but provide detailed explanation when necessary.for sure Always end your response with a line that rates the risk level on a scale of 1-10, formatted as: "Risk Level: [number]/10".`;
-
-    // Construct history for Gemini
-    // Gemini expects history as { role: 'user' | 'model', parts: [{ text: '...' }] }
-    const history = [];
-    let lastUserMessage = "";
-
-    // Handle system prompt by prepending to the first user message or using systemInstruction if supported
-    // For simplicity and compatibility, we'll prepend to the context or first message
+    const systemInstruction = `You are an AI legal assistant specialized in Indian law.
+Your role is to explain legal concepts clearly and cautiously.
+You must not provide definitive legal judgments.
+You must base your answer strictly on the provided legal context.
+If the context is insufficient, say so explicitly.
+Use simple language suitable for a non-lawyer.`;
 
     // Process previous messages
     for (let i = 0; i < (messages || []).length - 1; i++) {
@@ -87,15 +84,36 @@ async function generate(payload) {
       lastUserMessage = messages[messages.length - 1].content || "";
     }
 
+    // RAG Context formatting
+    const legalContext = payload.legalContext || [];
+    const legalContextString = legalContext
+      .map((c) => `Source: ${c.source || "Unknown"}\nText: ${c.text}`)
+      .join("\n\n");
+
     // Add context and system prompt to the last message
-    let finalPrompt = `${systemPrompt}\n\n`;
+    let finalPrompt = `${systemInstruction}\n\n`;
+
+    // Document Context (PDF/Image)
     if (extractedText) {
-      finalPrompt += `Here is additional context from a document:\n\n${extractedText.substring(
+      finalPrompt += `Current Document Content:\n${extractedText.substring(
         0,
         10000
       )}\n\n`;
     }
-    finalPrompt += `User Query: ${lastUserMessage}`;
+
+    finalPrompt += `User Query:
+${lastUserMessage}
+
+Relevant Legal Context:
+${legalContextString}
+
+Instructions:
+- Explain the applicable law in simple terms.
+- Clarify possible interpretations.
+- Highlight risks and limitations.
+- Suggest next steps cautiously.
+- Do NOT fabricate laws or sections.
+`;
 
     console.log("[aiProxy.generate] Calling Gemini API");
 
@@ -163,24 +181,28 @@ async function callAI(path, payload, timeout = 30000) {
         };
       }
 
-      const analysisPrompt = `Analyze this legal document and answer the following question:
+      const legalContext = payload.legalContext || [];
+      const legalContextString = legalContext
+        .map((c) => `Source: ${c.source || "Unknown"}\nText: ${c.text}`)
+        .join("\n\n");
 
-Question: ${
-        input_text ||
-        "Is this document legal? What are the key points and any red flags?"
-      }
+      const systemInstruction = `You are an AI assistant analyzing Indian legal documents.
+Your task is to identify potential risks, missing clauses, and unclear obligations.
+You must rely only on the provided document text and legal context.`;
+
+      const analysisPrompt = `${systemInstruction}
 
 Document Text:
 ${extractedText.substring(0, 10000)}
 
-Provide a structured analysis with:
-1. Summary
-2. Key points
-3. Potential risks or red flags
-4. Classification (legal/suspicious/scam/unclear)
-5. Actionable legal steps (if applicable)
+Relevant Legal References:
+${legalContextString}
 
-Use plain text format only - no markdown formatting, no bold text, no asterisks. Be professional and direct without consoling the user. Always end with a risk rating on a scale of 1-10 as: "Risk Level: [number]/10".`;
+Instructions:
+- Identify risky or ambiguous clauses.
+- Mention which laws or standards they relate to.
+- Explain risks in simple language.
+- Avoid giving legal verdicts.`;
 
       console.log("[aiProxy.callAI] Calling Gemini API for document analysis");
 
@@ -239,4 +261,4 @@ async function streamToClient(aiStreamPath, initPayload, ws, opts = {}) {
   }
 }
 
-module.exports = { generate, callAI, streamToClient };
+module.exports = { generate, callAI, streamToClient, extractTextFromPDF };
