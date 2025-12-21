@@ -4,7 +4,7 @@ const path = require("path");
 const pdfParse = require("pdf-parse");
 // Config removed - using environment variables
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-pro";
 
 console.log("[aiProxy] Config loaded - API key exists:", !!GEMINI_API_KEY);
 console.log("[aiProxy] Model:", GEMINI_MODEL);
@@ -68,6 +68,11 @@ You must not provide definitive legal judgments.
 You must base your answer strictly on the provided legal context.
 If the context is insufficient, say so explicitly.
 Use simple language suitable for a non-lawyer.`;
+
+    // Construct history for Gemini
+    // Gemini expects history as { role: 'user' | 'model', parts: [{ text: '...' }] }
+    const history = [];
+    let lastUserMessage = "";
 
     // Process previous messages
     for (let i = 0; i < (messages || []).length - 1; i++) {
