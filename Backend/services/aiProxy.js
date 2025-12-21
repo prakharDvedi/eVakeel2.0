@@ -16,7 +16,7 @@ console.log("[aiProxy] Gemini client ready:", !!model);
 
 /**
  * Extract text from PDF file
- */
+ */ 
 async function extractTextFromPDF(pdfPath) {
   try {
     if (!fs.existsSync(pdfPath)) {

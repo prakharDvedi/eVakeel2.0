@@ -74,7 +74,7 @@ function loadVectors() {
  * @param {number} topK - Number of chunks to return.
  * @returns {Array} - Array of chunk objects with { text, source, score, ... }
  */
-async function retrieveContext(query, topK = 5) {
+async function retrieveContext(query, topK = 8) {
   // Reload vectors if empty (or could add a file watcher)
   if (vectorStore.length === 0) loadVectors();
   if (vectorStore.length === 0) return []; // Still empty

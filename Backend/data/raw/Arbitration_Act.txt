@@ -1,0 +1,18 @@
+ARBITRATION AND CONCILIATION ACT, 1996 (Selected Sections)
+
+Section 7. Arbitration agreement.
+(1) In this Part, "arbitration agreement" means an agreement by the parties to submit to arbitration all or certain disputes which have arisen or which may arise between them in respect of a defined legal relationship, whether contractual or not.
+
+Section 8. Power to refer parties to arbitration where there is an arbitration agreement.
+(1) A judicial authority, before which an action is brought in a matter which is the subject of an arbitration agreement shall, if a party to the arbitration agreement or any person claiming through or under him, so applies not later than the date of submitting his first statement on the substance of the dispute, notwithstanding any judgment, decree or order of the Supreme Court or any Court, refer the parties to arbitration unless it finds that prima facie no valid arbitration agreement exists.
+
+Section 34. Application for setting aside arbitral award.
+(1) Recourse to a Court against an arbitral award may be made only by an application for setting aside such award in accordance with sub-section (2) and sub-section (3).
+(2) An arbitral award may be set aside by the Court only if-
+(a) the party making the application furnishes proof that-
+(i) a party was under some incapacity; or
+(ii) the arbitration agreement is not valid under the law...
+...
+(b) the Court finds that-
+(i) the subject-matter of the dispute is not capable of settlement by arbitration under the law for the time being in force, or
+(ii) the arbitral award is in conflict with the public policy of India.

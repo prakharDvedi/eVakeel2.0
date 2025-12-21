@@ -1,0 +1,18 @@
+INDIAN EVIDENCE ACT, 1872 (Key Provisions)
+
+Section 3. Interpretation-clause.
+"Fact".- "Fact" means and includes- (1) any thing, state of things, or relation of things, capable of being perceived by the senses; (2) any mental condition of which any person is conscious.
+"Relevant".- One fact is said to be relevant to another when the one is connected with the other in any of the ways referred to in the provisions of this Act relating to the relevancy of facts.
+"Evidence".- "Evidence" means and includes- (1) all statements which the Court permits or requires to be made before it by witnesses... (2) all documents including electronic records produced for the inspection of the Court.
+
+Section 5. Evidence may be given of facts in issue and relevant facts.
+Evidence may be given in any suit or proceeding of the existence or non-existence of every fact in issue and of such other facts as are hereinafter declared to be relevant, and of no others.
+
+Section 24. Confession caused by inducement, threat or promise, when irrelevant in criminal proceeding.
+A confession made by an accused person is irrelevant in a criminal proceeding, if the making of the confession appears to the Court to have been caused by any inducement, threat or promise having reference to the charge against the accused person...
+
+Section 25. Confession to police-officer not to be proved.
+No confession made to a police-officer, shall be proved as against a person accused of any offence.
+
+Section 27. How much of information received from accused may be proved.
+Provided that, when any fact is deposed to as discovered in consequence of information received from a person accused of any offence, in the custody of a police-officer, so much of such information, whether it amounts to a confession or not, as relates distinctly to the fact thereby discovered, may be proved.

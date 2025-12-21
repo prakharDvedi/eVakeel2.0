@@ -1,0 +1,22 @@
+INFORMATION TECHNOLOGY ACT, 2000 (Selected Key Sections)
+
+Section 43. Penalty and compensation for damage to computer, computer system, etc.
+If any person without permission of the owner or any other person who is incharge of a computer, computer system or computer network...
+(a) accesses or secures access...
+(b) downloads, copies or extracts any data...
+(c) introduces or causes to be introduced any computer contaminant or computer virus...
+he shall be liable to pay damages by way of compensation to the person so affected.
+
+Section 66. Computer related offences.
+If any person, dishonestly or fraudulently, does any act referred to in section 43, he shall be punishable with imprisonment for a term which may extend to three years or with fine which may extend to five lakh rupees or with both.
+
+Section 66A. Punishment for sending offensive messages through communication service, etc. (Struck down by SC in Shreya Singhal case, but historically relevant for context).
+
+Section 66C. Punishment for identity theft.
+Whoever, fraudulently or dishonestly make use of the electronic signature, password or any other unique identification feature of any other person, shall be punished with imprisonment of either description for a term which may extend to three years and shall also be liable to fine which may extend to one lakh rupees.
+
+Section 66D. Punishment for cheating by personation by using computer resource.
+Whoever, by means of any communication device or computer resource cheats by personation, shall be punished with imprisonment of either description for a term which may extend to three years and shall also be liable to fine which may extend to one lakh rupees.
+
+Section 67. Punishment for publishing or transmitting obscene material in electronic form.
+Whoever publishes or transmits or causes to be published or transmitted in the electronic form, any material which is lascivious or appeals to the prurient interest... shall be punished on first conviction with imprisonment of either description for a term which may extend to three years and with fine...
