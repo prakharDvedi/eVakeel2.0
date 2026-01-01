@@ -1,4 +1,5 @@
 # eVakeel - AI-Powered Legal Companion
+
 https://e-vakeel-mu-jhack-x.vercel.app/
 
 **eVakeel** is an intelligent legal advisory platform designed to make legal information accessible to every Indian citizen. Built with cutting-edge AI technology, it provides instant legal guidance, document analysis, and compliance tracking in a user-friendly interface.
@@ -25,7 +26,7 @@ https://e-vakeel-mu-jhack-x.vercel.app/
 ### Backend
 
 - **Fastify 5.6.0** - Fast web framework
-- **OpenAI SDK 4.73.1** - AI integration
+- **Gemini 2.5 flash** - AI integration
 - **WebSocket** - Real-time communication
 - **PDF-Parse 1.1.1** - PDF text extraction
 

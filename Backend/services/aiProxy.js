@@ -2,7 +2,6 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
-// Config removed - using environment variables
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-pro";
 
@@ -14,9 +13,7 @@ const model = genAI ? genAI.getGenerativeModel({ model: GEMINI_MODEL }) : null;
 
 console.log("[aiProxy] Gemini client ready:", !!model);
 
-/**
- * Extract text from PDF file
- */
+//extract text frim pdf
 async function extractTextFromPDF(pdfPath) {
   try {
     if (!fs.existsSync(pdfPath)) {
@@ -32,9 +29,7 @@ async function extractTextFromPDF(pdfPath) {
   }
 }
 
-/**
- * Chat with Gemini (with optional PDF/image context)
- */
+//gemini chat
 async function generate(payload) {
   if (!model) {
     return {
@@ -61,7 +56,7 @@ async function generate(payload) {
       }
     }
 
-    // System prompt for legal advisor role
+    //  prompt for legal advisor
     const systemInstruction = `You are an AI legal assistant specialized in Indian law.
 Your role is to explain legal concepts clearly and cautiously.
 You must not provide definitive legal judgments.
@@ -69,12 +64,9 @@ You must base your answer strictly on the provided legal context.
 If the context is insufficient, say so explicitly.
 Use simple language suitable for a non-lawyer.`;
 
-    // Construct history for Gemini
-    // Gemini expects history as { role: 'user' | 'model', parts: [{ text: '...' }] }
     const history = [];
     let lastUserMessage = "";
 
-    // Process previous messages
     for (let i = 0; i < (messages || []).length - 1; i++) {
       const msg = messages[i];
       const role = msg.role === "assistant" ? "model" : "user";
@@ -84,21 +76,16 @@ Use simple language suitable for a non-lawyer.`;
       });
     }
 
-    // Get the last message (current user query)
     if (messages && messages.length > 0) {
       lastUserMessage = messages[messages.length - 1].content || "";
     }
-
-    // RAG Context formatting
     const legalContext = payload.legalContext || [];
     const legalContextString = legalContext
       .map((c) => `Source: ${c.source || "Unknown"}\nText: ${c.text}`)
       .join("\n\n");
 
-    // Add context and system prompt to the last message
     let finalPrompt = `${systemInstruction}\n\n`;
 
-    // Document Context (PDF/Image)
     if (extractedText) {
       finalPrompt += `Current Document Content:\n${extractedText.substring(
         0,

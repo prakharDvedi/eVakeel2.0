@@ -2,22 +2,17 @@ const fs = require("fs");
 const path = require("path");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Python RAG Server URL
-const PYTHON_RAG_URL = "http://127.0.0.1:8000/embed";
+const PYTHON_RAG_URL =
+  process.env.PYTHON_RAG_URL || "http://127.0.0.1:8000/embed";
 
 const VECTOR_STORE_PATH = path.join(__dirname, "../data/vectors.json");
 let vectorStore = [];
 
-// Initialize Gemini for Query Expansion
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-// Use a lightweight model for query expansion if possible, or the main one
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-pro";
 const genAI = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
 const model = genAI ? genAI.getGenerativeModel({ model: GEMINI_MODEL }) : null;
 
-/**
- * Get embedding from Python RAG Server
- */
 async function getEmbedding(text) {
   if (!text || typeof text !== "string")
     throw new Error("Invalid text for embedding");
@@ -41,11 +36,8 @@ async function getEmbedding(text) {
   }
 }
 
-/**
- * Expand casual user query into legal search terms using Gemini
- */
 async function expandQuery(query) {
-  if (!model) return query; // Fallback if no model
+  if (!model) return query;
 
   try {
     const prompt = `You are a legal search assistant.
@@ -98,17 +90,12 @@ function loadVectors() {
   }
 }
 
-/**
- * Retrieves the most relevant chunks using InLegalBERT embeddings + Query Expansion
- */
 async function retrieveContext(query, topK = 8) {
   if (vectorStore.length === 0) loadVectors();
   if (vectorStore.length === 0) return [];
 
-  // 1. Expand Query
   const searchTerms = await expandQuery(query);
 
-  // 2. Embed Search Terms (using Python Server)
   console.log(`Embedding search terms: "${searchTerms}"`);
   let queryVec;
   try {
@@ -118,7 +105,6 @@ async function retrieveContext(query, topK = 8) {
     return [];
   }
 
-  // 3. Vector Search
   const scored = vectorStore.map((chunk) => {
     if (!chunk.embedding) return { ...chunk, score: -1 };
     return {
@@ -133,7 +119,6 @@ async function retrieveContext(query, topK = 8) {
   return results;
 }
 
-// Initialize on load
 loadVectors();
 
 module.exports = {
