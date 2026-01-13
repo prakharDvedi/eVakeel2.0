@@ -1,12 +1,12 @@
-// File: frontend/src/pages/AboutPage.jsx
+
 
 import React from 'react';
 import { motion } from 'framer-motion';
-// We'll use a few more icons for this page
+
 import { FaUsers, FaLock, FaLightbulb, FaExclamationTriangle } from 'react-icons/fa';
 
-// --- ANIMATION VARIANTS ---
-// A container for staggering items
+
+
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -18,7 +18,7 @@ const staggerContainer = {
   },
 };
 
-// A variant for items to fade in from below
+
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -28,18 +28,18 @@ const itemVariants = {
   },
 };
 
-// --- TEAM CARD COMPONENT ---
-// A simple component for your team members
+
+
 const TeamCard = ({ name, role, isYou = false }) => (
   <motion.div 
     variants={itemVariants}
-    // 1. ADDED hover animation
+    
     whileHover={{ scale: 1.05, y: -5 }}
     transition={{ type: 'spring', stiffness: 300 }}
     className="bg-surface p-4 sm:p-6 rounded-lg border border-border text-center shadow-soft cursor-pointer"
   >
     <img 
-      src={`https://api.dicebear.com/8.x/lorelei/svg?seed=${name}`} // Fun placeholder avatars
+      src={`https:
       className="w-24 h-24 rounded-full mx-auto mb-4 bg-secondary border-2 border-primary"
       alt={`${name}'s avatar`}
     />
@@ -49,15 +49,15 @@ const TeamCard = ({ name, role, isYou = false }) => (
 );
 
 
-// --- MAIN ABOUT PAGE COMPONENT ---
+
 function AboutPage() {
   return (
     <motion.main
       className="flex-grow flex flex-col items-center text-center px-4 sm:px-6 py-8 sm:py-16"
-      // This motion.div will be caught by the page transition animation in Layout.jsx
+      
     >
 
-      {/* --- Section 1: Title & Slogan --- */}
+      {}
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -75,7 +75,7 @@ function AboutPage() {
         Democratizing legal knowledge for every citizen of India through the power of artificial intelligence.
       </motion.p>
 
-      {/* --- Section 2: Problem & Solution --- */}
+      {}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -83,10 +83,10 @@ function AboutPage() {
         viewport={{ once: true, amount: 0.5 }}
         className="flex flex-col md:flex-row gap-6 md:gap-8 max-w-4xl mb-12 sm:mb-16"
       >
-        {/* The Challenge */}
+        {}
         <motion.div
           variants={itemVariants}
-          // 2. ADDED hover animation
+          
           whileHover={{ scale: 1.02, y: -5 }}
           transition={{ type: 'spring', stiffness: 300 }}
           className="bg-surface border border-border rounded-xl p-6 md:p-8 flex-1 text-left cursor-pointer"
@@ -98,10 +98,10 @@ function AboutPage() {
           </p>
         </motion.div>
         
-        {/* Our Solution */}
+        {}
         <motion.div
           variants={itemVariants}
-          // 3. ADDED hover animation
+          
           whileHover={{ scale: 1.02, y: -5 }}
           transition={{ type: 'spring', stiffness: 300 }}
           className="bg-surface border border-border rounded-xl p-8 flex-1 text-left cursor-pointer"
@@ -114,7 +114,7 @@ function AboutPage() {
         </motion.div>
       </motion.div>
 
-      {/* --- Section 3: Meet the Team --- */}
+      {}
       <h2 className="text-2xl sm:text-3xl font-bold text-text mb-6 sm:mb-8">Meet the Team</h2>
       <motion.div
         variants={staggerContainer}
@@ -123,14 +123,14 @@ function AboutPage() {
         viewport={{ once: true, amount: 0.2 }}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mb-12 sm:mb-16"
       >
-        {/* You can fill in your team's names here */}
+        {}
         <TeamCard name="Vansh Tambi" role="Frontend & UI/UX" isYou={true} />
         <TeamCard name="Prakhar Dvedi" role="Backend & Gen AI" />
         <TeamCard name="Mayank Verma" role="Backend & Database" />
         <TeamCard name="Raghav Upadhyay" role="Gen AI & Deployment" />
       </motion.div>
 
-      {/* --- Section 4: Disclaimer --- */}
+      {}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}

@@ -1,12 +1,8 @@
-// File: frontend/src/pages/HomePage.jsx
+import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FaGavel, FaFileAlt, FaShieldAlt } from "react-icons/fa";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-// 1. Import the new icon
-import { FaGavel, FaFileAlt, FaShieldAlt } from 'react-icons/fa';
-
-// --- ANIMATION VARIANTS (for cards) ---
 const cardContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -23,7 +19,7 @@ const cardItemVariants = {
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 100 },
+    transition: { type: "spring", stiffness: 100 },
   },
 };
 
@@ -45,50 +41,49 @@ function HomePage() {
         transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
         className="text-subtext max-w-2xl mb-8 md:mb-10 text-base md:text-lg px-4"
       >
-        Simplifying law, one query at a time. Get instant guidance, analyze documents, and understand your rights.
+        Simplifying law, one query at a time. Get instant guidance, analyze
+        documents, and understand your rights.
       </motion.p>
 
-      {/* Action Boxes */}
       <motion.div
         className="flex flex-col sm:flex-row gap-6 md:gap-8"
         variants={cardContainerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Box 1: Legal Advisor */}
-        <motion.div
-          variants={cardItemVariants}
-          whileTap={{ scale: 0.98 }}
-        >
+        <motion.div variants={cardItemVariants} whileTap={{ scale: 0.98 }}>
           <Link
             to="/advisor"
             className="group card-shine bg-surface border border-border rounded-xl p-6 md:p-8 w-full sm:w-80 h-auto md:h-64 flex flex-col items-center justify-center cursor-pointer
                        shadow-soft transition-all duration-300 transform block"
           >
             <FaGavel className="w-10 h-10 md:w-12 md:h-12 mb-4 text-primary transition-transform duration-300 group-hover:scale-110" />
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-text transition-colors duration-300 group-hover:text-active">Legal Advisor</h3>
-            <p className="text-subtext text-sm transition-colors duration-300 group-hover:text-text/80">Chat with our AI for instant answers to your legal questions.</p>
+            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-text transition-colors duration-300 group-hover:text-active">
+              Legal Advisor
+            </h3>
+            <p className="text-subtext text-sm transition-colors duration-300 group-hover:text-text/80">
+              Chat with our AI for instant answers to your legal questions.
+            </p>
           </Link>
         </motion.div>
 
-        {/* Box 2: Document Parser */}
-        <motion.div
-          variants={cardItemVariants}
-          whileTap={{ scale: 0.98 }}
-        >
+        <motion.div variants={cardItemVariants} whileTap={{ scale: 0.98 }}>
           <Link
             to="/parser"
             className="group card-shine bg-surface border border-border rounded-xl p-6 md:p-8 w-full sm:w-80 h-auto md:h-64 flex flex-col items-center justify-center cursor-pointer
                        shadow-soft transition-all duration-300 transform block"
           >
             <FaFileAlt className="w-10 h-10 md:w-12 md:h-12 mb-4 text-primary transition-transform duration-300 group-hover:scale-110" />
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-text transition-colors duration-300 group-hover:text-active">Document Parser</h3>
-            <p className="text-subtext text-sm transition-colors duration-300 group-hover:text-text/80">Upload a contract or agreement to get a simplified summary.</p>
+            <h3 className="text-xl md:text-2xl font-semibold mb-2 text-text transition-colors duration-300 group-hover:text-active">
+              Document Parser
+            </h3>
+            <p className="text-subtext text-sm transition-colors duration-300 group-hover:text-text/80">
+              Upload a contract or agreement to get a simplified summary.
+            </p>
           </Link>
         </motion.div>
       </motion.div>
 
-      {/* 2. NEW: Legal Score Button */}
       <motion.div
         className="mt-8 md:mt-10"
         initial={{ y: 20, opacity: 0 }}
@@ -104,7 +99,6 @@ function HomePage() {
           <span>Check Your Legal Score</span>
         </Link>
       </motion.div>
-
     </main>
   );
 }

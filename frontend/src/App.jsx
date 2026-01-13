@@ -1,15 +1,15 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout.jsx';
-import HomePage from './pages/HomePage.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import FeaturesPage from './pages/FeaturesPage.jsx';
-import PricingPage from './pages/PricingPage.jsx';
-import LegalAdvisorPage from './pages/LegalAdvisorPage.jsx';
-import DocumentParserPage from './pages/DocumentParserPage.jsx';
-import LegalScorePage from './pages/LegalScorePage.jsx';
-import './App.css';
-import './index.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
+import FeaturesPage from "./pages/FeaturesPage.jsx";
+import PricingPage from "./pages/PricingPage.jsx";
+import LegalAdvisorPage from "./pages/LegalAdvisorPage.jsx";
+import DocumentParserPage from "./pages/DocumentParserPage.jsx";
+import LegalScorePage from "./pages/LegalScorePage.jsx";
+import "./App.css";
+import "./index.css";
 
 function App() {
   return (

@@ -1,11 +1,8 @@
-// File: frontend/src/components/Layout.jsx
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Outlet, Link } from "react-router-dom"; // Import Link
+import { Outlet, Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-// This is the generic placeholder icon
 const IconPlaceholder = ({ className }) => (
   <svg
     className={className}
@@ -35,15 +32,14 @@ function Layout() {
   };
 
   return (
-    // Main container is 'relative' to hold the background
     <div className="bg-secondary text-text min-h-screen flex flex-col font-sans overflow-x-hidden relative">
-      {/* ========== ANIMATED BACKGROUND IMAGE ========== */}
+      {/* animated bg watermark */}
       <motion.div
-        initial={{ opacity: 0 }} // Start invisible
+        initial={{ opacity: 0 }}
         animate={{
-          opacity: 1, // Fade in
-          y: [0, -20, 0], // Float up and down
-          scale: [1, 1.03, 1], // Pulse scale up and down
+          opacity: 1,
+          y: [0, -20, 0],
+          scale: [1, 1.03, 1],
         }}
         transition={{
           opacity: { duration: 1, delay: 0.5, ease: "easeOut" },
@@ -63,15 +59,15 @@ function Layout() {
         className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
       >
         <img
-          src="/img2.png" // Your image from the /public folder
+          src="/img2.png"
           alt="Background watermark"
           className="w-2/3 md:w-1/2 h-auto opacity-5 object-contain"
         />
       </motion.div>
 
-      {/* All page content is wrapped in a z-10 container to sit on top */}
+      {/* content wrapper */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        {/* ========== NAVBAR ========== */}
+        {/* navbar */}
         <motion.header
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -80,7 +76,6 @@ function Layout() {
         >
           <nav className="container mx-auto px-6 py-4">
             <div className="flex justify-between items-center">
-              {/* Logo now links back to home */}
               <Link to="/" onClick={closeMenu}>
                 <img
                   src="/logo.png"
@@ -89,7 +84,6 @@ function Layout() {
                 />
               </Link>
 
-              {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-6">
                 <Link
                   to="/"
@@ -117,7 +111,6 @@ function Layout() {
                 </Link>
               </div>
 
-              {/* Mobile Menu Button */}
               <button
                 onClick={toggleMenu}
                 className="md:hidden text-text hover:text-active transition-colors p-2"
@@ -131,7 +124,6 @@ function Layout() {
               </button>
             </div>
 
-            {/* Mobile Navigation Menu */}
             {isMenuOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
@@ -168,11 +160,9 @@ function Layout() {
           </nav>
         </motion.header>
 
-        {/* ========== PAGE CONTENT GOES HERE ========== */}
-        {/* Outlet renders the active page component (e.g., HomePage, LegalAdvisorPage) */}
         <Outlet />
 
-        {/* ========== FOOTER ========== */}
+        {/* footer */}
         <footer className="bg-surface border-t border-border mt-16">
           <div className="container mx-auto px-6 py-8 text-center text-subtext text-xs">
             <p className="font-semibold text-error mb-2 text-sm">DISCLAIMER</p>
@@ -190,6 +180,5 @@ function Layout() {
   );
 }
 
-// Re-export IconPlaceholder if you need it on other pages
 export { IconPlaceholder };
 export default Layout;

@@ -1,37 +1,37 @@
-// File: frontend/src/pages/DocumentParserPage.jsx
+
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { analyzeDocument, analyzeDocumentByPath } from '../services/api';
 import { parseMarkdown } from '../utils/markdown';
 
-// --- SVG ICONS ---
+
 const UploadIcon = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http:
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v5a4 4 0 01-4 4H7z"></path>
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11V3m0 8l-3-3m3 3l3-3"></path>
   </svg>
 );
 
 const PdfIcon = ({ className }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http:
     <path d="M11.363 2c-1.658 0-3.001 1.343-3.001 3.001v2.12h-2.12c-1.018 0-1.842.825-1.842 1.842v10.074c0 1.018.825 1.842 1.842 1.842h12.118c1.018 0 1.842-.825 1.842-1.842v-10.074c0-1.018-.825-1.842-1.842-1.842h-2.12v-2.12c0-1.658-1.343-3.001-3-3.001h-2.241zm0 1.91h2.241c.599 0 1.091.492 1.091 1.091v2.12h-4.422v-2.12c0-.599.492-1.091 1.091-1.091z" />
   </svg>
 );
 
 const ImageIcon = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http:
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
   </svg>
 );
 
 const CloseIcon = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http:
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
   </svg>
 );
 
-// --- NEW: Loading Indicator ---
+
 const LoadingIndicator = () => (
   <motion.div
     className="flex space-x-1 p-4"
@@ -58,7 +58,7 @@ const LoadingIndicator = () => (
 );
 
 
-// --- MAIN PAGE COMPONENT ---
+
 
 function DocumentParserPage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -72,14 +72,14 @@ function DocumentParserPage() {
   const handleFile = (file) => {
     if (file && allowedTypes.includes(file.type)) {
       setSelectedFile(file);
-      setResults(null); // Clear previous results
+      setResults(null); 
     } else if (file) {
       alert("Invalid file type. Please upload a PDF or an image.");
       setSelectedFile(null);
     }
   };
 
-  // --- Event Handlers ---
+  
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -114,10 +114,10 @@ function DocumentParserPage() {
     try {
       console.log('[DocumentParserPage] Analyzing file:', selectedFile.name, selectedFile.type);
       
-      // Call the backend API
+      
       const response = await analyzeDocument(selectedFile);
       
-      // Format the response for display
+      
       if (response.full_analysis) {
         setResults(response.full_analysis);
       } else if (response.error) {
@@ -129,7 +129,7 @@ function DocumentParserPage() {
       console.error('[DocumentParserPage] Error analyzing document:', err);
       setError(err.message || 'Failed to analyze document. Please try again.');
       
-      // Show error to user
+      
       setResults(`Error: ${err.message || 'Failed to analyze document. Please check if the backend is running and the file is valid.'}`);
     } finally {
       setIsLoading(false);
@@ -139,7 +139,7 @@ function DocumentParserPage() {
   return (
     <div className="flex-grow flex flex-col items-center justify-start text-text p-4 sm:p-6 pt-8 sm:pt-16">
 
-      {/* --- Page Title --- */}
+      {}
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -157,12 +157,12 @@ function DocumentParserPage() {
         Upload your legal document (PDF or image). The AI will analyze the text and provide a simplified summary.
       </motion.p>
 
-      {/* --- Main Uploader Area --- */}
+      {}
       <div className="w-full max-w-2xl px-4 sm:px-0">
         <AnimatePresence mode="wait">
           {!selectedFile ? (
             
-            // --- Dropzone ---
+            
             <motion.div
               key="dropzone"
               initial={{ opacity: 0, y: 20 }}
@@ -194,7 +194,7 @@ function DocumentParserPage() {
 
           ) : (
             
-            // --- File Preview Card ---
+            
             <motion.div
               key="preview"
               initial={{ opacity: 0, y: 20 }}
@@ -225,8 +225,8 @@ function DocumentParserPage() {
           )}
         </AnimatePresence>
 
-        {/* --- Submit Button or Loading State --- */}
-        {/* This section only shows if a file is selected AND we don't have results yet */}
+        {}
+        {}
         {selectedFile && !results && (
           <div className="w-full mt-6">
             {isLoading ? (
@@ -255,7 +255,7 @@ function DocumentParserPage() {
           </div>
         )}
 
-        {/* --- NEW: Results Card --- */}
+        {}
         <AnimatePresence>
           {results && (
             <motion.div

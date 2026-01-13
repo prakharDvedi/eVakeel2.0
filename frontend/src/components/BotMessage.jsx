@@ -1,16 +1,13 @@
-// File: frontend/src/components/BotMessage.jsx
+import React from "react";
+import { motion } from "framer-motion";
+import { parseMarkdown } from "../utils/markdown";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { parseMarkdown } from '../utils/markdown';
-
-// Animation variants for the container
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.3
+      duration: 0.3,
     },
   },
 };

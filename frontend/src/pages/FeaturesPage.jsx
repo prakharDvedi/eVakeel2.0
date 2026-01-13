@@ -1,10 +1,10 @@
-// File: frontend/src/pages/FeaturesPage.jsx
+
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaRobot, FaFileAlt, FaShieldAlt, FaGavel, FaMobileAlt, FaLock, FaClock, FaUsers } from 'react-icons/fa';
 
-// Animation variants
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -119,7 +119,7 @@ function FeaturesPage() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-8 md:py-16">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ function FeaturesPage() {
         </p>
       </motion.div>
 
-      {/* Features Grid */}
+      {}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -177,7 +177,7 @@ function FeaturesPage() {
         ))}
       </motion.div>
 
-      {/* Call to Action */}
+      {}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

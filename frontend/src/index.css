@@ -1,115 +1,98 @@
 @import "tailwindcss";
 
-/* --- HIDE THE MAIN BROWSER SCROLLBAR --- */
-
-/* For Firefox */
+/* hide main scrollbar */
 html {
   scrollbar-width: none;
 }
 
-/* For IE and old Edge */
 body {
   -ms-overflow-style: none;
 }
 
-/* For Chrome, Safari, and new Edge */
-/* This targets ONLY the main body scrollbar */
 body::-webkit-scrollbar {
   display: none;
 }
 
-/* ------------------------------------- */
-
-
+/* core theme variables */
 @theme {
-    /* Core brand colors */
-    --color-primary: #1A3C8B;   /* Deep Court Blue - trust & authority */
-    --color-secondary: #0D1522; /* Dark Navy Background */
-    
-    /* Text colors */
-    --color-text: #F2F3F5;      /* Soft white text for dark backgrounds */
-    --color-subtext: #A0A4AC;   /* Muted gray for secondary text */
-    
-    /* UI Elements */
-    --color-surface: #121821;   /* Panel / Card background */
-    --color-border: #2A2F38;    /* Subtle border lines */
-    --color-hover: #243B70;     /* Slightly lighter blue for hover states */
-    --color-active: #2E5AD6;    /* Button active / link highlight */
-    
-    /* Accent and utility colors */
-    --color-success: #00A36C;   /* Subtle green for positive states */
-    --color-error: #B3261E;     /* Deep red for alerts or warnings */
-    --color-warning: #E5A700;   /* Soft yellow for notices */
-    
-    /* Shadows & overlays */
-    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.3);
-    --overlay-dark: rgba(0, 0, 0, 0.6);
-
-    /* Font setup */
-    --font-primary: 'Inter', 'Poppins', sans-serif;
-    --font-size-base: 16px;
+  --color-primary: #1a3c8b;
+  --color-secondary: #0d1522;
+  --color-text: #f2f3f5;
+  --color-subtext: #a0a4ac;
+  --color-surface: #121821;
+  --color-border: #2a2f38;
+  --color-hover: #243b70;
+  --color-active: #2e5ad6;
+  --color-success: #00a36c;
+  --color-error: #b3261e;
+  --color-warning: #e5a700;
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --overlay-dark: rgba(0, 0, 0, 0.6);
+  --font-primary: "Inter", "Poppins", sans-serif;
+  --font-size-base: 16px;
 }
 
-/* --- Custom Sleek Scrollbar (for chat, textareas, etc.) --- */
-/* This will NOT be hidden by the rules above */
-
-/* For Firefox */
+/* custom scrollbar styles */
 .custom-scrollbar {
-  scrollbar-width: thin; /* Makes the scrollbar 'thin' */
-  scrollbar-color: var(--color-primary) var(--color-surface); /* thumb track */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-surface);
 }
 
-/* For WebKit browsers (Chrome, Safari, new Edge) */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: var(--color-surface); /* Matches your card background */
+  background: var(--color-surface);
   border-radius: 10px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--color-primary); /* Uses your main theme blue */
+  background: var(--color-primary);
   border-radius: 10px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--color-active); /* Brightens on hover */
+  background: var(--color-active);
 }
 
-/* --- Keyframes for the gradient animation --- */
+/* gradient flow animation */
 @keyframes gradient-flow {
-  0% { background-position: 0% center; }
-  50% { background-position: 200% center; }
-  100% { background-position: 0% center; }
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
 }
 
-/* --- Animated Text Gradient Utility --- */
+/* text gradient utility */
 .text-gradient-primary {
-  /* We add 'active' to both ends for a seamless loop */
   background: linear-gradient(
-    to right, 
-    var(--color-active), 
-    var(--color-text), 
+    to right,
+    var(--color-active),
+    var(--color-text),
     var(--color-active)
   );
-  background-size: 200% auto; /* Make bg larger than text */
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
-  
-  /* Apply the animation */
   animation: gradient-flow 8s ease-in-out infinite;
 }
 
-/* --- Card Shine Effect --- */
+/* card shine effect */
 .card-shine {
   position: relative;
-  overflow: hidden; /* This is crucial */
+  overflow: hidden;
 }
 
-/* Creates the shine element */
 .card-shine::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -75%;
@@ -118,14 +101,12 @@ body::-webkit-scrollbar {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.08) 50%, /* Faint white shine */
+    rgba(255, 255, 255, 0.08) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   transform: skewX(-25deg);
-  /* Default state: hidden off-screen */
 }
 
-/* On hover, move the shine across the card */
 .card-shine:hover::before {
   left: 125%;
   transition: left 0.7s ease-in-out;

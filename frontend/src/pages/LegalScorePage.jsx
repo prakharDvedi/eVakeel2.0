@@ -1,17 +1,17 @@
-// File: frontend/src/pages/LegalScorePage.jsx
+
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-// --- Configuration for Legal Score Tasks ---
+
 const legalTasks = [
   {
     id: "aadhaar",
     name: "Aadhaar Card Linked & KYC Updated",
     description:
       "Ensure your mobile number is linked and your KYC is up-to-date.",
-    link: "https://myaadhaar.uidai.gov.in/",
+    link: "https:
     points: 20,
     steps: [
       "Visit the UIDAI website or use the mAadhaar app",
@@ -27,7 +27,7 @@ const legalTasks = [
     name: "PAN Card Linked with Aadhaar",
     description:
       "As per government regulations, your PAN must be linked with Aadhaar.",
-    link: "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/bl-link-aadhaar",
+    link: "https:
     points: 20,
     steps: [
       "Visit the Income Tax e-Filing portal",
@@ -42,7 +42,7 @@ const legalTasks = [
     id: "bankKyc",
     name: "Bank Account e-KYC Completed",
     description: "Verify that all your bank accounts are fully KYC compliant.",
-    link: "https://www.rbi.org.in/commonman/English/Scripts/PressReleases.aspx?Id=3310",
+    link: "https:
     points: 15,
     steps: [
       "Visit your bank's website or mobile app",
@@ -58,7 +58,7 @@ const legalTasks = [
     name: "Voter ID Card (EPIC) Issued",
     description:
       "Verify you are registered to vote and have a valid EPIC card.",
-    link: "https://voters.eci.gov.in/",
+    link: "https:
     points: 15,
     steps: [
       "Visit the Election Commission website",
@@ -74,7 +74,7 @@ const legalTasks = [
     name: "DigiLocker Account Verified",
     description:
       "A secure government-issued digital wallet for your documents.",
-    link: "https://www.digilocker.gov.in/",
+    link: "https:
     points: 10,
     steps: [
       "Visit the DigiLocker website",
@@ -89,7 +89,7 @@ const legalTasks = [
     id: "itr",
     name: "Income Tax Return (ITR) Filed",
     description: "Filed your ITR for the last assessment year (if applicable).",
-    link: "https://www.incometax.gov.in/iec/foportal/",
+    link: "https:
     points: 10,
     steps: [
       "Gather all income documents and receipts",
@@ -104,7 +104,7 @@ const legalTasks = [
     id: "drivingLicense",
     name: "Valid Driving License (Optional)",
     description: "Check if your driving license is active and not expired.",
-    link: "https://parivahan.gov.in/parivahan//en/content/driving-licence-0",
+    link: "https:
     points: 5,
     steps: [
       "Visit the Parivahan Sewa website",
@@ -120,7 +120,7 @@ const legalTasks = [
     name: "Valid Passport (Optional)",
     description:
       "Having a valid passport is key for international travel and identity.",
-    link: "https://www.passportindia.gov.in/",
+    link: "https:
     points: 5,
     steps: [
       "Visit the Passport Seva website",
@@ -135,7 +135,7 @@ const legalTasks = [
     id: "propertyTax",
     name: "Property Tax Paid",
     description: "Ensure your property tax is paid and up-to-date.",
-    link: "https://www.mcgm.gov.in/",
+    link: "https:
     points: 10,
     steps: [
       "Check your local municipal corporation website",
@@ -150,7 +150,7 @@ const legalTasks = [
     id: "insurance",
     name: "Health Insurance Active",
     description: "Maintain active health insurance coverage.",
-    link: "https://www.irdai.gov.in/",
+    link: "https:
     points: 8,
     steps: [
       "Review your current health insurance policy",
@@ -166,7 +166,7 @@ const legalTasks = [
     name: "GST Registration (If Applicable)",
     description:
       "Register for GST if your business turnover exceeds threshold.",
-    link: "https://www.gst.gov.in/",
+    link: "https:
     points: 12,
     steps: [
       "Check if your business requires GST registration",
@@ -181,7 +181,7 @@ const legalTasks = [
     id: "providentFund",
     name: "EPF Account Active",
     description: "Maintain active Employee Provident Fund account.",
-    link: "https://www.epfindia.gov.in/",
+    link: "https:
     points: 8,
     steps: [
       "Visit EPFO website or use UMANG app",
@@ -194,24 +194,24 @@ const legalTasks = [
   },
 ];
 
-// Calculate the maximum possible score
+
 const totalMaxPoints = legalTasks.reduce((sum, task) => sum + task.points, 0);
 
-// --- Main Page Component ---
+
 function LegalScorePage() {
-  // Create an initial state for checkboxes, all set to 'false'
+  
   const [checkedState, setCheckedState] = useState(
     new Array(legalTasks.length).fill(false)
   );
 
-  // State for expanded dropdowns
+  
   const [expandedTasks, setExpandedTasks] = useState(
     new Array(legalTasks.length).fill(false)
   );
 
   const [score, setScore] = useState(0);
 
-  // Update the score whenever the 'checkedState' changes
+  
   useEffect(() => {
     const newScore = checkedState.reduce((currentScore, isChecked, index) => {
       if (isChecked) {
@@ -222,7 +222,7 @@ function LegalScorePage() {
     setScore(newScore);
   }, [checkedState]);
 
-  // Handler for when a checkbox is clicked
+  
   const handleCheckboxChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
@@ -230,7 +230,7 @@ function LegalScorePage() {
     setCheckedState(updatedCheckedState);
   };
 
-  // Handler for expanding/collapsing dropdowns
+  
   const handleToggleExpand = (position) => {
     const updatedExpandedState = expandedTasks.map((item, index) =>
       index === position ? !item : item
@@ -242,7 +242,7 @@ function LegalScorePage() {
 
   return (
     <div className="grow flex flex-col items-center justify-start text-text p-4 sm:p-6 pt-8 sm:pt-12">
-      {/* --- Page Title --- */}
+      {}
       <motion.h1
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -261,7 +261,7 @@ function LegalScorePage() {
         links, then check the box.
       </motion.p>
 
-      {/* --- Score Display --- */}
+      {}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -277,7 +277,7 @@ function LegalScorePage() {
           </span>
         </div>
 
-        {/* Progress Bar */}
+        {}
         <div className="w-full bg-secondary rounded-full h-3">
           <motion.div
             className="bg-active h-3 rounded-full"
@@ -288,7 +288,7 @@ function LegalScorePage() {
         </div>
       </motion.div>
 
-      {/* --- Checklist --- */}
+      {}
       <motion.div
         className="w-full max-w-lg space-y-4"
         initial={{ y: 20, opacity: 0 }}
@@ -300,9 +300,9 @@ function LegalScorePage() {
             key={task.id}
             className="bg-surface border border-border rounded-xl shadow-soft overflow-hidden"
           >
-            {/* Main Task Header */}
+            {}
             <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0">
-              {/* Checkbox and Task Info */}
+              {}
               <div className="flex items-start flex-grow">
                 <input
                   type="checkbox"
@@ -314,7 +314,7 @@ function LegalScorePage() {
                   className="h-5 w-5 sm:h-6 sm:w-6 rounded text-active bg-secondary border-border focus:ring-active mt-1"
                 />
 
-                {/* Task Info */}
+                {}
                 <div className="ml-3 sm:ml-4 flex-grow">
                   <label
                     htmlFor={task.id}
@@ -328,13 +328,13 @@ function LegalScorePage() {
                 </div>
               </div>
 
-              {/* Points and Controls */}
+              {}
               <div className="flex items-center justify-between sm:justify-end space-x-2 sm:space-x-3 ml-8 sm:ml-0">
                 <span className="text-xs sm:text-sm font-medium text-active bg-active/10 px-2 py-1 rounded">
                   +{task.points} pts
                 </span>
 
-                {/* Expand/Collapse Button */}
+                {}
                 <button
                   onClick={() => handleToggleExpand(index)}
                   className="text-subtext hover:text-active transition-colors p-1"
@@ -347,7 +347,7 @@ function LegalScorePage() {
                   )}
                 </button>
 
-                {/* External Link */}
+                {}
                 <a
                   href={task.link}
                   target="_blank"
@@ -360,7 +360,7 @@ function LegalScorePage() {
               </div>
             </div>
 
-            {/* Expandable Steps Section */}
+            {}
             {expandedTasks[index] && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}

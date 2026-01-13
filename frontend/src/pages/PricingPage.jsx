@@ -1,4 +1,4 @@
-// File: frontend/src/pages/PricingPage.jsx
+
 
 import React from 'react';
 
