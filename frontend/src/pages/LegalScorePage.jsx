@@ -1,9 +1,6 @@
-
-
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt, FaChevronDown, FaChevronUp } from "react-icons/fa";
-
 
 const legalTasks = [
   {
@@ -11,7 +8,7 @@ const legalTasks = [
     name: "Aadhaar Card Linked & KYC Updated",
     description:
       "Ensure your mobile number is linked and your KYC is up-to-date.",
-    link: "https:
+    link: "https://uidai.gov.in/",
     points: 20,
     steps: [
       "Visit the UIDAI website or use the mAadhaar app",
@@ -27,7 +24,7 @@ const legalTasks = [
     name: "PAN Card Linked with Aadhaar",
     description:
       "As per government regulations, your PAN must be linked with Aadhaar.",
-    link: "https:
+    link: "https://www.incometax.gov.in/iec/foportal",
     points: 20,
     steps: [
       "Visit the Income Tax e-Filing portal",
@@ -42,7 +39,7 @@ const legalTasks = [
     id: "bankKyc",
     name: "Bank Account e-KYC Completed",
     description: "Verify that all your bank accounts are fully KYC compliant.",
-    link: "https:
+    link: "https://www.onlinesbi.sbi/",
     points: 15,
     steps: [
       "Visit your bank's website or mobile app",
@@ -58,7 +55,7 @@ const legalTasks = [
     name: "Voter ID Card (EPIC) Issued",
     description:
       "Verify you are registered to vote and have a valid EPIC card.",
-    link: "https:
+    link: "https://www.nvsp.in/",
     points: 15,
     steps: [
       "Visit the Election Commission website",
@@ -74,7 +71,7 @@ const legalTasks = [
     name: "DigiLocker Account Verified",
     description:
       "A secure government-issued digital wallet for your documents.",
-    link: "https:
+    link: "https://digilocker.gov.in/",
     points: 10,
     steps: [
       "Visit the DigiLocker website",
@@ -89,7 +86,7 @@ const legalTasks = [
     id: "itr",
     name: "Income Tax Return (ITR) Filed",
     description: "Filed your ITR for the last assessment year (if applicable).",
-    link: "https:
+    link: "https://www.incometax.gov.in/iec/foportal",
     points: 10,
     steps: [
       "Gather all income documents and receipts",
@@ -104,7 +101,7 @@ const legalTasks = [
     id: "drivingLicense",
     name: "Valid Driving License (Optional)",
     description: "Check if your driving license is active and not expired.",
-    link: "https:
+    link: "https://parivahan.gov.in/parivahan/",
     points: 5,
     steps: [
       "Visit the Parivahan Sewa website",
@@ -120,7 +117,7 @@ const legalTasks = [
     name: "Valid Passport (Optional)",
     description:
       "Having a valid passport is key for international travel and identity.",
-    link: "https:
+    link: "https://www.passportindia.gov.in/",
     points: 5,
     steps: [
       "Visit the Passport Seva website",
@@ -135,7 +132,7 @@ const legalTasks = [
     id: "propertyTax",
     name: "Property Tax Paid",
     description: "Ensure your property tax is paid and up-to-date.",
-    link: "https:
+    link: "https://www.india.gov.in/",
     points: 10,
     steps: [
       "Check your local municipal corporation website",
@@ -150,7 +147,7 @@ const legalTasks = [
     id: "insurance",
     name: "Health Insurance Active",
     description: "Maintain active health insurance coverage.",
-    link: "https:
+    link: "https://www.irdai.gov.in/",
     points: 8,
     steps: [
       "Review your current health insurance policy",
@@ -166,7 +163,7 @@ const legalTasks = [
     name: "GST Registration (If Applicable)",
     description:
       "Register for GST if your business turnover exceeds threshold.",
-    link: "https:
+    link: "https://www.gst.gov.in/",
     points: 12,
     steps: [
       "Check if your business requires GST registration",
@@ -181,7 +178,7 @@ const legalTasks = [
     id: "providentFund",
     name: "EPF Account Active",
     description: "Maintain active Employee Provident Fund account.",
-    link: "https:
+    link: "https://www.epfindia.gov.in/",
     points: 8,
     steps: [
       "Visit EPFO website or use UMANG app",
@@ -194,24 +191,19 @@ const legalTasks = [
   },
 ];
 
-
 const totalMaxPoints = legalTasks.reduce((sum, task) => sum + task.points, 0);
 
-
 function LegalScorePage() {
-  
   const [checkedState, setCheckedState] = useState(
     new Array(legalTasks.length).fill(false)
   );
 
-  
   const [expandedTasks, setExpandedTasks] = useState(
     new Array(legalTasks.length).fill(false)
   );
 
   const [score, setScore] = useState(0);
 
-  
   useEffect(() => {
     const newScore = checkedState.reduce((currentScore, isChecked, index) => {
       if (isChecked) {
@@ -222,7 +214,6 @@ function LegalScorePage() {
     setScore(newScore);
   }, [checkedState]);
 
-  
   const handleCheckboxChange = (position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
@@ -230,7 +221,6 @@ function LegalScorePage() {
     setCheckedState(updatedCheckedState);
   };
 
-  
   const handleToggleExpand = (position) => {
     const updatedExpandedState = expandedTasks.map((item, index) =>
       index === position ? !item : item
